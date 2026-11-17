@@ -45,7 +45,7 @@ div.tabsAction { gap: 8px; margin: 18px 0 8px; }
 
 /* ---------- Tooltips and info popups ---------- */
 div.ui-tooltip, div.ui-tooltip.mytooltip {
-	background: #fff !important;
+	background: var(--m-surface) !important;
 	color: var(--m-ink) !important;
 	border: 1px solid var(--m-border) !important;
 	border-radius: var(--m-radius) !important;
@@ -63,7 +63,7 @@ div.ui-tooltip b, div.ui-tooltip strong { font-weight: 600; }
 /* ---------- Notifications (jnotify toasts) ---------- */
 .jnotify-container .jnotify-notification { margin-bottom: 8px; }
 .jnotify-container .jnotify-notification .jnotify-background, div.jnotify-background {
-	background: #fff !important;
+	background: var(--m-surface) !important;
 	border: 1px solid var(--m-border) !important;
 	border-left: 4px solid #16a34a !important;
 	border-radius: var(--m-radius) !important;
@@ -82,15 +82,15 @@ div.ok, div.info, div.warning, div.error, div.green, div.red {
 	border-radius: var(--m-radius-sm);
 	border: 1px solid var(--m-border);
 	border-left-width: 4px;
-	background: #fff;
+	background: var(--m-surface);
 	color: var(--m-ink);
 	padding: 10px 14px;
 	box-shadow: none;
 }
-div.ok { border-left-color: #16a34a; background: #f0fdf4; }
+div.ok { border-left-color: #16a34a; background: var(--m-ok-bg); }
 div.info { border-left-color: var(--m-accent); background: var(--m-accent-soft); }
-div.warning { border-left-color: #d97706; background: #fffbeb; }
-div.error, div.red { border-left-color: #dc2626; background: #fef2f2; }
+div.warning { border-left-color: #d97706; background: var(--m-warn-bg); }
+div.error, div.red { border-left-color: #dc2626; background: var(--m-err-bg); }
 
 /* ---------- Dialogs ---------- */
 .ui-dialog.ui-widget.ui-widget-content { border: 1px solid var(--m-border); border-radius: var(--m-radius); box-shadow: var(--m-shadow-lg); padding: 0; overflow: hidden; }
@@ -110,7 +110,7 @@ table.border, table.bordernooddeven, table.table-border, .table-border {
 }
 table.border td, table.bordernooddeven td, .table-border-col, .table-key-border-col, .table-val-border-col {
 	border: 0 !important;
-	border-bottom: 1px solid #f1f5f9 !important;
+	border-bottom: 1px solid var(--m-surface-3) !important;
 	padding: 9px 8px !important;
 }
 table.border tr:last-child td { border-bottom: 0 !important; }
@@ -133,7 +133,7 @@ div.box, .boxstats, .boxstatscontent, div.boxstatsindicator { border-radius: var
 .boxstats:hover { box-shadow: var(--m-shadow-lg); transform: translateY(-1px); }
 
 /* ---------- Pagination ---------- */
-div.pagination li > a, div.pagination li > span.inactive, ul.pagination li > a { border-radius: 6px !important; border: 1px solid var(--m-border); padding: 4px 9px; color: var(--m-ink-2); background: #fff; }
+div.pagination li > a, div.pagination li > span.inactive, ul.pagination li > a { border-radius: 6px !important; border: 1px solid var(--m-border); padding: 4px 9px; color: var(--m-ink-2); background: var(--m-surface); }
 div.pagination li a:hover { background: var(--m-accent-soft); color: var(--m-accent-strong); border-color: var(--m-accent-ring); }
 div.pagination li.active a, div.pagination li .active a { background: var(--m-accent) !important; border-color: var(--m-accent) !important; color: #fff !important; }
 
@@ -150,7 +150,7 @@ div.blockvmenusearchphone, div.blockvmenuimpair, div.blockvmenupair, div.blockvm
 a.vsmenu.vmenusel, a.vmenu.vmenusel, .vmenusel { background: var(--m-accent-soft); color: var(--m-accent-strong) !important; border-radius: 6px; }
 
 /* ---------- Dropdowns ---------- */
-.dropdown-menu, div.dropdown-content, #topmenu-login-dropdown .dropdown-menu { background: #fff; color: var(--m-ink); }
+.dropdown-menu, div.dropdown-content, #topmenu-login-dropdown .dropdown-menu { background: var(--m-surface); color: var(--m-ink); }
 .dropdown-menu a, .dropdown-content a { border-radius: 6px; }
 .dropdown-menu a:hover, .dropdown-content a:hover { background: var(--m-accent-soft) !important; }
 
@@ -353,7 +353,7 @@ input[type=checkbox], input[type=radio] {
 	vertical-align: middle;
 	position: relative;
 	cursor: pointer;
-	background: #fff;
+	background: var(--m-surface);
 	border: 1px solid var(--m-border-strong) !important;
 	box-shadow: none !important;
 	transition: background .12s, border-color .12s, box-shadow .12s;
@@ -382,7 +382,7 @@ input[type=radio]:checked {
 	border-color: var(--m-accent) !important;
 	background: radial-gradient(circle at center, var(--m-accent) 0 4px, #fff 4.5px);
 }
-input[type=checkbox]:disabled, input[type=radio]:disabled { background-color: #f1f5f9; border-color: var(--m-border) !important; opacity: .7; cursor: default !important; }
+input[type=checkbox]:disabled, input[type=radio]:disabled { background-color: var(--m-surface-3); border-color: var(--m-border) !important; opacity: .7; cursor: default !important; }
 input[type=checkbox]:checked:disabled { background-color: #a5b4fc; border-color: #a5b4fc !important; }
 /* checkbox in list tables (select all / select row): slightly smaller, centred */
 td.nowrap input[type=checkbox], th input[type=checkbox], td.center input[type=checkbox], input.checkforselect, input.checkforaction { margin: 0; vertical-align: middle; }
@@ -394,8 +394,8 @@ td.nowrap input[type=checkbox], th input[type=checkbox], td.center input[type=ch
 #topmenu-login-dropdown .dropdown-menu div, #topmenu-login-dropdown .dropdown-menu .login_block_user {
 	color: var(--m-ink) !important;
 }
-#topmenu-login-dropdown .dropdown-menu { background: #fff; padding: 0; overflow: hidden; }
-#topmenu-login-dropdown .dropdown-header, #topmenu-login-dropdown .user-body { background: #fff; padding: 14px 16px; }
+#topmenu-login-dropdown .dropdown-menu { background: var(--m-surface); padding: 0; overflow: hidden; }
+#topmenu-login-dropdown .dropdown-header, #topmenu-login-dropdown .user-body { background: var(--m-surface); padding: 14px 16px; }
 #topmenu-login-dropdown .user-body a { color: var(--m-muted) !important; font-size: 12.5px; }
 #topmenu-login-dropdown .user-body a:hover { color: var(--m-accent) !important; }
 .user-footer { background: var(--m-surface-2) !important; border-top: 1px solid var(--m-border); padding: 12px 14px !important; display: flex; gap: 8px; align-items: center; }
@@ -409,7 +409,7 @@ a.button-top-menu-dropdown, .user-footer a {
 	height: 34px;
 	padding: 0 12px !important;
 	margin: 0 !important;
-	background: #fff !important;
+	background: var(--m-surface) !important;
 	color: var(--m-ink-2) !important;
 	border: 1px solid var(--m-border-strong) !important;
 	border-radius: var(--m-radius-sm) !important;
@@ -421,7 +421,7 @@ a.button-top-menu-dropdown, .user-footer a {
 }
 a.button-top-menu-dropdown:hover, .user-footer a:hover { background: var(--m-accent-soft) !important; color: var(--m-accent-strong) !important; border-color: var(--m-accent-ring) !important; }
 .user-footer .pull-right a, a.button-top-menu-dropdown[href*=logout] { color: var(--m-danger) !important; }
-.user-footer .pull-right a:hover { background: #fef2f2 !important; border-color: #fecaca !important; color: var(--m-danger) !important; }
+.user-footer .pull-right a:hover { background: var(--m-err-bg) !important; border-color: #fecaca !important; color: var(--m-danger) !important; }
 .user-footer i, .user-footer span.fa, .user-footer span.far { color: inherit !important; }
 
 /* User dropdown: centred links and centred buttons */
@@ -699,7 +699,7 @@ html body input[type=radio] {
 	width: 16px !important; height: 16px !important; min-width: 16px !important; min-height: 16px !important;
 	margin: 0 6px 0 0 !important;
 	border-radius: 50% !important;
-	background: #fff;
+	background: var(--m-surface);
 }
 html body input[type=radio]:hover { box-shadow: 0 0 0 3px var(--m-accent-soft) !important; }
 html body input[type=radio]:checked {
@@ -804,7 +804,7 @@ html body div.divphotoref img.photoref[src*="/theme/common/user_"] {
 	box-sizing: border-box;
 	padding: 14px !important;
 	object-fit: contain;
-	background: #fff !important;
+	background: var(--m-surface) !important;
 }
 
 /* ---------- Record view (card): clear label / value boundary and two separated panels ---------- */
@@ -825,7 +825,7 @@ html body div.fichecenter > div.fichecenterbis, html body div.fichecenter > div.
 /* Stronger boundary */
 html body table.tableforfield { border-color: var(--m-border-strong) !important; background: var(--m-surface); }
 html body table.tableforfield > tbody > tr > td:first-child:not([colspan]) {
-	background: color-mix(in srgb, var(--m-accent) 6%, #f8fafc) !important;
+	background: color-mix(in srgb, var(--m-accent) 6%, var(--m-surface-2)) !important;
 	border-right: 1px solid var(--m-border-strong) !important;
 }
 html body table.tableforfield > tbody > tr > td { border-bottom: 1px solid var(--m-border) !important; }
@@ -910,3 +910,6 @@ html body .side-nav #id-left, html body #id-left { width: 100% !important; min-w
 html body div.vmenu { width: 100% !important; box-sizing: border-box; }
 html body div.vmenu div.blockvmenupair, html body div.vmenu div.blockvmenuimpair { width: auto !important; box-sizing: border-box; }
 html body div.vmenu div.menu_contenu a.vsmenu, html body div.vmenu div.menu_titre a.vmenu { white-space: normal; overflow-wrap: anywhere; }
+
+/* Header rows keep the theme border colour whatever the base sheet says (it used white, wrong in dark mode) */
+html body table tr.liste_titre > th, html body table tr.liste_titre > td, html body table th.liste_titre { border-bottom-color: var(--m-border) !important; }
