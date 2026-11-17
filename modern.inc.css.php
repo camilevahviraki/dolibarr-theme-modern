@@ -36,7 +36,7 @@ $mLink = 'rgb('.$colortextlink.')';
 :root {
 	--m-accent: <?php print $mAcc; ?>;
 	--m-accent-strong: color-mix(in srgb, var(--m-accent) 82%, black);
-	--m-accent-soft: color-mix(in srgb, var(--m-accent) 9%, white);
+	--m-accent-soft: color-mix(in srgb, var(--m-accent) 9%, var(--m-surface));
 	--m-accent-ring: color-mix(in srgb, var(--m-accent) 22%, transparent);
 	--m-link: <?php print $mLink; ?>;
 	--m-bar: <?php print $mBar; ?>;
@@ -49,6 +49,10 @@ $mLink = 'rgb('.$colortextlink.')';
 	--m-border-strong: #cbd5e1;
 	--m-surface: #ffffff;
 	--m-surface-2: #f8fafc;
+	--m-surface-3: #f1f5f9;
+	--m-ok-bg: #f0fdf4;
+	--m-warn-bg: #fffbeb;
+	--m-err-bg: #fef2f2;
 	--m-danger: #b91c1c;
 	--m-radius: 12px;
 	--m-radius-sm: 8px;
@@ -59,6 +63,94 @@ $mLink = 'rgb('.$colortextlink.')';
 	--colorbacktabactive: var(--m-accent-soft);
 	--colortextlink: var(--m-link);
 }
+
+<?php
+// Dark mode: same switch as the base sheet (Setup > Display > Theme, or &THEME_DARKMODEENABLED=2 on the URL to force it)
+if (getDolGlobalString('THEME_DARKMODEENABLED')) {
+	print "/* Dark mode */\n";
+	print (getDolGlobalInt('THEME_DARKMODEENABLED') != 2) ? "@media (prefers-color-scheme: dark) {\n" : "@media not print {\n";
+	?>
+	:root {
+		--m-ink: #e5e7eb;
+		--m-ink-2: #cbd5e1;
+		--m-muted: #94a3b8;
+		--m-border: #2c3547;
+		--m-border-strong: #44516a;
+		--m-surface: #1c2230;
+		--m-surface-2: #232a3a;
+		--m-surface-3: #2a3245;
+		--m-ok-bg: #12301f;
+		--m-warn-bg: #3a2c0d;
+		--m-err-bg: #3b1616;
+		--m-danger: #f87171;
+		--m-accent-strong: color-mix(in srgb, var(--m-accent) 55%, white);
+		--m-accent-soft: color-mix(in srgb, var(--m-accent) 24%, var(--m-surface));
+		--m-bar: color-mix(in srgb, var(--m-accent) 32%, #0a0e1a);
+		--m-bar-text: #f1f5f9;
+		--m-shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+		--m-shadow-lg: 0 10px 30px rgba(0,0,0,.5);
+		--colorbackbody: #131824;
+		--colorbackvmenu1: var(--m-surface);
+		--colorbackgrey: var(--m-surface-2);
+		--colorbacktitle1: var(--m-surface-2);
+		--colorbacktabcard1: var(--m-surface);
+		--colorbacklinepairhover: var(--m-surface-2);
+		--colorbacklineimpair1: var(--m-surface);
+		--colorbacklineimpair2: var(--m-surface);
+		--colorbacklinepair1: var(--m-surface);
+		--colorbacklinepair2: var(--m-surface);
+		--tooltipbgcolor: var(--m-surface-3);
+		--colortextbackvmenu: var(--m-ink);
+		--colortext: var(--m-ink);
+		--colortextlink: color-mix(in srgb, var(--m-link) 55%, white);
+		--inputbordercolor: var(--m-border-strong);
+		--inputbackgroundcolor: var(--m-surface);
+		--colorboxstatsborder: var(--m-border);
+		--colorbacktabactive: var(--m-accent-soft);
+	}
+	body { color-scheme: dark; }
+	select, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple,
+	.select2-dropdown, .select2-container--default .select2-search--dropdown .select2-search__field, .ui-dialog, .ui-widget-content,
+	.ui-datepicker, .tox .tox-edit-area {
+		background: var(--m-surface) !important; color: var(--m-ink) !important; border-color: var(--m-border-strong) !important;
+	}
+	.select2-container--default .select2-selection--single .select2-selection__rendered, .select2-results__option { color: var(--m-ink) !important; }
+	.select2-container--default .select2-results__option--highlighted[aria-selected], .select2-container--default .select2-results__option--highlighted { background: var(--m-accent-soft) !important; color: var(--m-accent-strong) !important; }
+	.select2-container--default .select2-results__option[aria-selected=true] { background: var(--m-surface-3) !important; }
+	div.tabBar, table.liste, table.noborder, table.border, div.fichehalfleft, div.fichehalfright { background-color: var(--m-surface); }
+	img.photoref, div.photoref { background: var(--m-surface) !important; }
+	html body td, html body th, html body tr { border-bottom-color: var(--m-border) !important; border-top-color: var(--m-border) !important; }
+	div.boxstats, a.boxstats, div.box, div.info-box { background: var(--m-surface); color: var(--m-ink); }
+	#id-top, div.tmenudiv { border-bottom: 1px solid color-mix(in srgb, var(--m-accent) 45%, transparent); }
+	span.badgeneutral, .badgeneutral, .badge-secondary, span.badge:not([class*="badge-"]), a.badge:not([class*="badge-"]) { background: var(--m-surface-3) !important; color: var(--m-ink) !important; border: 1px solid var(--m-border-strong) !important; }
+	a.butAction, input.butAction, button.butAction { background-image: linear-gradient(180deg, color-mix(in srgb, var(--m-accent) 82%, white) 0%, color-mix(in srgb, var(--m-accent) 92%, white) 100%) !important; border-color: color-mix(in srgb, var(--m-accent) 70%, white) !important; }
+	.button-cancel, a.butActionCancel { background: var(--m-surface-2) !important; color: var(--m-ink) !important; border-color: var(--m-border-strong) !important; }
+	a.butActionRefused, span.butActionRefused, .butActionRefused { background: var(--m-surface-3) !important; color: var(--m-muted) !important; border-color: var(--m-border) !important; }
+	#topmenu-login-dropdown .user-header, #topmenu-login-dropdown .dropdown-header, #topmenu-login-dropdown .user-body, #topmenu-login-dropdown .user-footer, #topmenu-login-dropdown .dropdown-menu { background: var(--m-surface) !important; color: var(--m-ink) !important; }
+	#topmenu-login-dropdown .user-header p, #topmenu-login-dropdown .user-header small, #topmenu-login-dropdown .user-header span, #topmenu-login-dropdown .user-header i { color: var(--m-ink) !important; }
+	#topmenu-login-dropdown .user-header { background: var(--m-surface-2) !important; }
+	.nographyet { filter: invert(1); opacity: .16; }
+	.nographyettext { opacity: .7; color: var(--m-muted); }
+	.fa[style*="color"], .fas[style*="color"], .far[style*="color"], .fab[style*="color"], i[class*="fa-"][style*="color"], span.pictomodule, span.pictofixedwidth[class*="fa-"] { filter: brightness(2.9) saturate(.8); }
+	span.opacitymedium.fa, .fa.opacitymedium, .fas.opacitymedium { filter: brightness(1.6); }
+	img.ui-datepicker-trigger, img[src*="object_calendar"], img[src*="object_paypal"] { filter: invert(.88); }
+	div.neutral, div.info-box-neutral { background: var(--m-surface-2) !important; color: var(--m-ink) !important; border-color: var(--m-border-strong) !important; }
+	.select2-container--default .select2-selection--multiple .select2-selection__choice { background: var(--m-surface-3) !important; color: var(--m-ink) !important; border-color: var(--m-border-strong) !important; }
+	.cke_chrome { filter: invert(.92) hue-rotate(180deg); border-color: var(--m-border-strong) !important; }
+	.boxfooter, tr.liste_total td { background: var(--m-surface-2) !important; }
+	tr.liste_total td, tr.liste_total th, tr.liste_total td * { color: var(--m-ink) !important; }
+	.amount, span.amount, td.amount { color: #5eead4 !important; }
+	div.error, span.error, .error { color: #fca5a5 !important; }
+	div.warning, span.warning, .warning, div.warning a { color: #fcd34d !important; }
+	div.ok, .ok:not(img) { color: #86efac; }
+	button.dpInvisibleButtons, .dpInvisibleButtons { color: var(--m-accent-strong) !important; }
+	a.classlink, div.boxfooter a, .boxtablefooter a { color: var(--m-accent-strong) !important; }
+	input, select, textarea { color: var(--m-ink); }
+	::placeholder { color: var(--m-muted); }
+	<?php
+	print "}\n";
+}
+?>
 
 /* Inter (variable, SIL OFL) bundled in theme/modern/fonts */
 @font-face {
@@ -135,7 +227,7 @@ tr.liste_titre th, tr.liste_titre td, th.liste_titre, td.liste_titre, tr.liste_t
 tr.liste_titre a, th.liste_titre a { color: var(--m-ink) !important; font-weight: 600 !important; }
 th.liste_titre_sel, th.liste_titre_sel a, tr.liste_titre th.liste_titre_sel a { font-weight: 700 !important; }
 tr.liste_titre_filter td { background: var(--m-surface) !important; }
-tr.oddeven td, tr.oddeven th, tr.even td, tr.odd td { border-bottom: 1px solid #f1f5f9 !important; padding-top: 11px; padding-bottom: 11px; }
+tr.oddeven td, tr.oddeven th, tr.even td, tr.odd td { border-bottom: 1px solid var(--m-surface-3) !important; padding-top: 11px; padding-bottom: 11px; }
 tr.oddeven:hover td { background: var(--m-surface-2) !important; }
 tr.oddeven:hover td:first-child { box-shadow: inset 2px 0 0 var(--m-accent); }
 td.right, td.nowrap, .amount, .nowraponall { font-variant-numeric: tabular-nums; }
@@ -164,7 +256,7 @@ input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button
 	border-radius: var(--m-radius-sm) !important;
 	padding: 7px 10px;
 	min-height: 34px;
-	background: #fff;
+	background: var(--m-surface);
 	box-shadow: 0 1px 1px rgba(15,23,42,.03);
 	transition: border-color .15s, box-shadow .15s;
 }
@@ -199,20 +291,20 @@ input.button, input[type=submit], input[type=button], button.button, a.button {
 }
 .butAction:hover:not(.butActionDelete):not(.butActionRefused), input[type=submit]:hover { box-shadow: var(--m-shadow-lg); transform: translateY(-1px); filter: brightness(1.06); }
 input[type=submit].button-cancel, input.button.button-cancel, input.button-cancel, a.button-cancel, .button-cancel {
-	background: #fff !important;
+	background: var(--m-surface) !important;
 	color: var(--m-ink-2) !important;
 	border: 1px solid var(--m-border-strong) !important;
 	box-shadow: none;
 }
-.button-cancel:hover { background: #f1f5f9 !important; transform: none; filter: none; }
+.button-cancel:hover { background: var(--m-surface-3) !important; transform: none; filter: none; }
 .butAction.butActionDelete, a.butActionDelete, span.butActionDelete, input.butActionDelete {
-	background: #fff !important;
+	background: var(--m-surface) !important;
 	color: var(--m-danger) !important;
 	border: 1px solid #fecaca !important;
 	box-shadow: none;
 }
-.butAction.butActionDelete:hover, a.butActionDelete:hover, span.butActionDelete:hover { background: #fef2f2 !important; transform: none; filter: none; }
-.butActionRefused, a.butActionRefused, span.butActionRefused { background: #f1f5f9 !important; color: #94a3b8 !important; border: 1px solid var(--m-border) !important; box-shadow: none; }
+.butAction.butActionDelete:hover, a.butActionDelete:hover, span.butActionDelete:hover { background: var(--m-err-bg) !important; transform: none; filter: none; }
+.butActionRefused, a.butActionRefused, span.butActionRefused { background: var(--m-surface-3) !important; color: #94a3b8 !important; border: 1px solid var(--m-border) !important; box-shadow: none; }
 .center > .button + .button, .center > input + input { margin-left: 8px; }
 
 /* ---------- Badges and statuses ---------- */
