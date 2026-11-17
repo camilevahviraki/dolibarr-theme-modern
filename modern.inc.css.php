@@ -119,20 +119,21 @@ div.tabBar, table.liste, table.noborder:not(.paymenttable):not(.margintable):not
 	border-radius: var(--m-radius);
 	box-shadow: var(--m-shadow);
 }
-table.liste, table.noborder, table.formdoc { border-collapse: separate; border-spacing: 0; overflow: hidden; }
+table.liste, table.noborder, table.formdoc { border-collapse: separate; border-spacing: 0; }
 div.tabBar { padding: 18px 20px; }
 tr.liste_titre th, tr.liste_titre td, th.liste_titre, td.liste_titre, tr.liste_titre_sel th {
 	background: var(--m-surface-2) !important;
-	color: var(--m-muted) !important;
-	font-size: 12px;
+	color: var(--m-ink) !important;
+	font-size: 13px;
 	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: .04em;
+	text-transform: none;
+	letter-spacing: 0;
 	border-bottom: 1px solid var(--m-border) !important;
 	border-top: 0 !important;
 	padding: 10px 12px;
 }
-tr.liste_titre a { color: var(--m-muted) !important; }
+tr.liste_titre a, th.liste_titre a { color: var(--m-ink) !important; font-weight: 600 !important; }
+th.liste_titre_sel, th.liste_titre_sel a, tr.liste_titre th.liste_titre_sel a { font-weight: 700 !important; }
 tr.liste_titre_filter td { background: var(--m-surface) !important; }
 tr.oddeven td, tr.oddeven th, tr.even td, tr.odd td { border-bottom: 1px solid #f1f5f9 !important; padding-top: 11px; padding-bottom: 11px; }
 tr.oddeven:hover td { background: var(--m-surface-2) !important; }
