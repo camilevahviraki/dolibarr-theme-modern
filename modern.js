@@ -70,6 +70,73 @@
 		}
 	}
 
+	// Collapsible groups: a chevron on each group title that has children, state kept in localStorage.
+	// The menu is flat (title, then its items as siblings), so the items of a group are the siblings up to the next title.
+	var GKEY = 'modern_leftmenu_collapsed';
+
+	function getCollapsed() {
+		try { return JSON.parse(localStorage.getItem(GKEY) || '[]'); } catch (e) { return []; }
+	}
+
+	function setCollapsed(list) {
+		try { localStorage.setItem(GKEY, JSON.stringify(list)); } catch (e) { /* ignore */ }
+	}
+
+	function groupItems(title) {
+		var items = [];
+		var n = title.nextElementSibling;
+		while (n && !n.classList.contains('menu_titre')) {
+			items.push(n);
+			n = n.nextElementSibling;
+		}
+		return items;
+	}
+
+	function applyState(title, items, collapsed) {
+		title.classList.toggle('m-collapsed', collapsed);
+		var btn = title.querySelector('.m-chev');
+		if (btn) {
+			btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+		}
+		items.forEach(function (el) {
+			el.classList.toggle('m-group-hidden', collapsed);
+		});
+	}
+
+	function initGroups() {
+		var saved = getCollapsed();
+		Array.prototype.forEach.call(document.querySelectorAll('div.vmenu div.menu_titre'), function (title) {
+			var items = groupItems(title);
+			if (!items.some(function (el) { return el.classList.contains('menu_contenu'); })) {
+				return;
+			}
+			var label = title.textContent.trim();
+			var hasCurrent = items.some(function (el) { return el.classList.contains('m-current'); });
+
+			var btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'm-chev';
+			btn.setAttribute('aria-label', label);
+			btn.innerHTML = '<span class="fas fa-chevron-down" aria-hidden="true"></span>';
+			title.appendChild(btn);
+			title.classList.add('m-has-children');
+
+			applyState(title, items, !hasCurrent && saved.indexOf(label) !== -1);
+
+			btn.addEventListener('click', function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
+				var collapsed = !title.classList.contains('m-collapsed');
+				applyState(title, items, collapsed);
+				var list = getCollapsed().filter(function (t) { return t !== label; });
+				if (collapsed) {
+					list.push(label);
+				}
+				setCollapsed(list);
+			});
+		});
+	}
+
 	function init() {
 		var links = Array.prototype.slice.call(document.querySelectorAll('div.vmenu a.vsmenu[href]'));
 		var best = null;
@@ -94,6 +161,8 @@
 		if (best) {
 			mark(best);
 		}
+
+		initGroups();
 
 		// Remember the clicked link before the page reloads
 		links.forEach(function (a) {
