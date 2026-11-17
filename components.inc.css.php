@@ -547,3 +547,366 @@ div.vmenu a:hover .fa-caret-down, div.vmenu a:hover .fa-caret-right, div.vmenu a
 div.vmenu a:hover .fa-chevron-right, div.vmenu a:hover .fa-angle-down, div.vmenu a:hover .fa-angle-right {
 	color: var(--m-accent-strong) !important;
 }
+
+/* ---------- Setup home (admin/index.php): cards ---------- */
+section.setupsection {
+	position: relative;
+	padding: 22px 24px 22px 84px !important;
+	margin: 0 0 14px;
+	background: var(--m-surface) !important;
+	border: 1px solid var(--m-border);
+	border-radius: var(--m-radius);
+	box-shadow: var(--m-shadow-sm, 0 1px 2px rgba(15,23,42,.05));
+	color: var(--m-muted);
+	line-height: 1.55;
+	transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+section.setupsection:hover {
+	border-color: var(--m-accent);
+	box-shadow: 0 6px 20px rgba(15,23,42,.08), 0 0 0 3px var(--m-accent-ring);
+}
+section.setupsection > span:first-child, section.setupsection > img:first-child {
+	position: absolute; left: 24px; top: 22px;
+	width: 44px; height: 44px; margin: 0 !important; padding: 0 !important;
+	display: flex !important; align-items: center; justify-content: center;
+	background: var(--m-accent-soft); border-radius: 12px;
+	font-size: 20px !important; color: var(--m-accent-strong) !important;
+}
+section.setupsection > a:first-of-type {
+	display: block;
+	margin-bottom: 4px;
+	font-size: 16px !important;
+	font-weight: 600;
+	color: var(--m-ink) !important;
+}
+section.setupsection > br { display: none; }
+section.setupsection div.warning {
+	margin: 14px 0 0 !important;
+}
+section.setupsection + br, section.setupsection + br + br { display: none; }
+div.logo_setup { display: none; }
+
+/* ---------- Title bar action buttons (view mode, refresh, add): compact ---------- */
+html body a.btnTitle, html body .btnTitle {
+	min-width: 0 !important;
+	width: 32px; height: 32px;
+	padding: 0 !important;
+	margin: 0 0 0 6px !important;
+	display: inline-flex !important; align-items: center; justify-content: center;
+	border-radius: var(--m-radius-sm) !important;
+	vertical-align: middle;
+}
+html body a.btnTitle.btnTitleSelected { background: var(--m-accent-soft); border-color: var(--m-accent) !important; color: var(--m-accent-strong); }
+html body a.btnTitle .btnTitle-icon, html body a.btnTitle > .fa, html body a.btnTitle > span.fa, html body a.btnTitle > span.fas {
+	font-size: 14px !important; line-height: 1; margin: 0 !important; padding: 0 !important; width: auto;
+}
+html body a.btnTitle.btnTitleSelected .btnTitle-icon { color: var(--m-accent-strong) !important; }
+html body a.btnTitle:hover { background: var(--m-surface-2); }
+/* Buttons with a text label keep their width */
+html body a.btnTitle:has(.btnTitle-label) { width: auto; padding: 0 12px !important; }
+
+/* Mass action column: row checkboxes aligned with the select-all checkbox of the header */
+html body table.liste th.liste_titre.maxwidthsearch:has(#checkforselects), html body table.liste td.actioncolumn {
+	text-align: right !important;
+	padding-right: 6px !important;
+	padding-left: 4px !important;
+}
+html body table.liste td.actioncolumn { padding-right: 8px !important; }
+
+/* Tables no longer clip (dropdowns such as the column selector must overflow): round the corner cells instead */
+table.liste > thead > tr:first-child > th:first-child, table.liste > tbody > tr:first-child > th:first-child,
+table.liste > tbody > tr:first-child > td:first-child { border-top-left-radius: var(--m-radius); }
+table.liste > thead > tr:first-child > th:last-child, table.liste > tbody > tr:first-child > th:last-child,
+table.liste > tbody > tr:first-child > td:last-child { border-top-right-radius: var(--m-radius); }
+table.liste > tbody > tr:last-child > td:first-child { border-bottom-left-radius: var(--m-radius); }
+table.liste > tbody > tr:last-child > td:last-child { border-bottom-right-radius: var(--m-radius); }
+
+/* Column selector dropdown (list icon in the table header) */
+html body .multiselectcheckboxselectedfields ul.selectedfieldsleft {
+	background: var(--m-surface) !important;
+	border: 1px solid var(--m-border) !important;
+	border-radius: var(--m-radius) !important;
+	box-shadow: var(--m-shadow-lg, 0 12px 32px rgba(15,23,42,.14)) !important;
+	padding: 8px !important;
+	margin-top: 6px;
+	z-index: 1000;
+	text-transform: none; letter-spacing: 0; font-weight: 400;
+}
+html body .multiselectcheckboxselectedfields ul.selectedfieldsleft li {
+	display: flex; align-items: center; gap: 8px;
+	padding: 5px 8px; border-radius: 6px; list-style: none;
+	font-size: 13px; color: var(--m-ink); text-transform: none;
+}
+html body .multiselectcheckboxselectedfields ul.selectedfieldsleft li:hover { background: var(--m-accent-soft); }
+html body .multiselectcheckboxselectedfields ul.selectedfieldsleft li label { padding: 0 !important; margin: 0; cursor: pointer; text-transform: none; flex: 1; }
+/* Search box of the column selector: sticky and opaque, so options never show through it */
+html body .multiselectcheckboxselectedfields ul.selectedfieldsleft li.liinputsearch,
+html body .multiselectcheckboxselectedfields ul.selectedfieldsleft li.liinputsearch:hover {
+	position: sticky; top: -8px; z-index: 2;
+	background: var(--m-surface) !important;
+	margin: -8px -8px 4px; padding: 8px 8px 8px !important;
+	border-radius: var(--m-radius) var(--m-radius) 0 0;
+	border-bottom: 1px solid var(--m-border);
+}
+
+/* ---------- Thin scrollbars (page, tables, dropdowns) ---------- */
+* { scrollbar-width: thin; scrollbar-color: var(--m-border-strong) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--m-border-strong); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+*::-webkit-scrollbar-thumb:hover { background: var(--m-muted); background-clip: content-box; }
+*::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+
+/* ---------- Record header: photo / icon placeholder ---------- */
+html body div.divphotoref .photoref {
+	display: inline-flex !important; align-items: center; justify-content: center;
+	width: 72px; height: 72px; padding: 0 !important; margin: 0 !important;
+	background: var(--m-accent-soft);
+	border: 1px solid var(--m-accent-ring) !important;
+	border-radius: 18px !important;
+	box-shadow: none !important;
+	overflow: hidden;
+}
+html body div.divphotoref .photoref > span.fas, html body div.divphotoref .photoref > span.fa,
+html body div.divphotoref .photoref > span.far {
+	font-size: 28px !important; line-height: 1; color: var(--m-accent-strong) !important;
+}
+html body div.divphotoref .photoref img, html body div.divphotoref img.photo {
+	width: 100%; height: 100%; object-fit: cover; border-radius: 0 !important; box-shadow: none !important; border: 0 !important;
+}
+html body div.divphotoref { margin-right: 16px; }
+html body div.divphotoref .photoref {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: 0 2px 10px rgba(15,23,42,.10), 0 1px 3px rgba(15,23,42,.06) !important;
+}
+
+/* ---------- Field tables (record cards): readable labels in an accent shade, dark values ---------- */
+html body table.border td.titlefield, html body table.border td.titlefieldmiddle, html body table.border td.titlefieldcreate,
+html body table.border td.titlefieldmax45, html body table.border td[class*="titlefield"],
+html body table.border > tbody > tr > td:first-child:not([colspan]) {
+	color: var(--m-ink-2) !important;
+	font-size: 13px !important;
+	font-weight: 600 !important;
+}
+html body table.border > tbody > tr > td:nth-child(2) {
+	color: var(--m-ink) !important;
+	font-size: 14px;
+}
+
+/* Radios: compact 16px, filled accent circle with a white dot when selected */
+html body input[type=radio] {
+	width: 16px !important; height: 16px !important; min-width: 16px !important; min-height: 16px !important;
+	margin: 0 6px 0 0 !important;
+	border-radius: 50% !important;
+	background: #fff;
+}
+html body input[type=radio]:hover { box-shadow: 0 0 0 3px var(--m-accent-soft) !important; }
+html body input[type=radio]:checked {
+	border-color: var(--m-accent) !important;
+	background: radial-gradient(circle at center, #fff 0 2.5px, var(--m-accent) 3px) !important;
+}
+html body input[type=radio]:checked:disabled { background: radial-gradient(circle at center, #fff 0 2.5px, #a5b4fc 3px) !important; border-color: #a5b4fc !important; }
+
+/* General rule: any list column holding a row checkbox lines up with the header select-all checkbox */
+html body table.liste td:has(> input.checkforselect), html body table.liste td:has(> input.checkforaction) {
+	text-align: right !important;
+	padding-right: 8px !important;
+	padding-left: 4px !important;
+}
+
+/* ---------- Consistent field widths in forms ---------- */
+/* Standard width for text-like inputs, selects and select2 boxes in field tables. Special cases keep their size:
+   explicit small widths (width25..width200, maxwidth50/75/100), date pickers, numbers. */
+:root { --m-field-w: 340px; --m-icon-w: 22px; }
+html body table.border td :is(
+		input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], input:not([type]),
+		select:not(.select2-hidden-accessible), span.select2-container
+	):where(:not([class~="width25"]):not([class~="width50"]):not([class~="width75"]):not([class~="width100"]):not([class~="width125"]):not([class~="width150"]):not([class~="width200"]):not(.hasDatepicker):not(.maxwidthdate):not([class~="maxwidth50"]):not([class~="maxwidth75"]):not([class~="maxwidth100"])) {
+	width: calc(var(--m-field-w) - var(--m-icon-w)) !important;
+	max-width: 100% !important;
+	min-width: 0 !important;
+	box-sizing: border-box;
+}
+html body table.border td span.select2-container .select2-selection { width: 100% !important; max-width: none !important; min-width: 0 !important; }
+
+/* Icon + field: the icon is part of the standard width, so right edges line up with plain fields */
+html body table.border td .pictofixedwidth ~ :is(input[type=text], input[type=email], input[type=url], input[type=tel], input:not([type]), span.select2-container):where(:not([class~="width25"]):not([class~="width50"]):not([class~="width75"]):not([class~="width100"]):not([class~="width125"]):not([class~="width150"]):not([class~="width200"]):not(.hasDatepicker)) {
+	width: calc(var(--m-field-w) - var(--m-icon-w)) !important; margin-left: 0 !important;
+}
+
+/* Textareas and HTML editors (CKEditor) share the same width */
+:root { --m-area-w: 560px; }
+html body table.border td textarea,
+html body table.border td div.cke, html body table.border td .cke_chrome, html body table.border td .cke_inner,
+html body table.border td .mce-tinymce, html body table.border td .tox-tinymce {
+	width: var(--m-area-w) !important;
+	max-width: 100% !important;
+	box-sizing: border-box;
+}
+
+/* Responsive: field widths shrink with the screen, and fill the cell on small screens */
+html body table.border td :is(input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], input:not([type]), select:not(.select2-hidden-accessible), span.select2-container):where(:not([class~="width25"]):not([class~="width50"]):not([class~="width75"]):not([class~="width100"]):not([class~="width125"]):not([class~="width150"]):not([class~="width200"]):not(.hasDatepicker):not(.maxwidthdate):not([class~="maxwidth50"]):not([class~="maxwidth75"]):not([class~="maxwidth100"])) {
+	width: min(calc(var(--m-field-w) - var(--m-icon-w)), calc(100% - var(--m-icon-w))) !important;
+}
+html body table.border td textarea, html body table.border td div.cke, html body table.border td .cke_chrome,
+html body table.border td .cke_inner, html body table.border td .mce-tinymce, html body table.border td .tox-tinymce {
+	width: min(var(--m-area-w), 100%) !important;
+}
+@media (max-width: 768px) {
+	html body table.border td :is(input, select, span.select2-container, textarea, div.cke):not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not(.hasDatepicker):not(.select2-hidden-accessible) {
+		max-width: 100% !important;
+	}
+	html body table.border > tbody > tr > td:first-child:not([colspan]) { width: 38% !important; }
+}
+
+/* Date range (from / to): the two date fields together take the standard field width */
+html body table.border td:has(.divfordateinput ~ .divfordateinput) .divfordateinput {
+	display: inline-flex !important; align-items: center; gap: 6px;
+	width: calc((min(var(--m-field-w) - var(--m-icon-w), 100% - var(--m-icon-w)) - 10px) / 2);
+	vertical-align: middle;
+}
+html body table.border td:has(.divfordateinput ~ .divfordateinput) .divfordateinput input.hasDatepicker {
+	flex: 1 1 auto; min-width: 0; width: 100% !important; max-width: none !important;
+}
+html body table.border td:has(.divfordateinput ~ .divfordateinput) .divfordateinput img.ui-datepicker-trigger { flex: 0 0 auto; }
+/* Icon + field (native select too): no extra left margin, width stays responsive */
+html body table.border td .pictofixedwidth ~ :is(input[type=text], input[type=email], input[type=url], input[type=tel], input:not([type]), select:not(.select2-hidden-accessible), span.select2-container):where(:not([class~="width25"]):not([class~="width50"]):not([class~="width75"]):not([class~="width100"]):not([class~="width125"]):not([class~="width150"]):not([class~="width200"]):not(.hasDatepicker)) {
+	margin-left: 0 !important;
+	width: min(calc(var(--m-field-w) - var(--m-icon-w)), calc(100% - var(--m-icon-w))) !important;
+}
+/* Icon placed before a wrapper (e.g. state select inside a div): same rule as icon directly before the field */
+html body table.border td:has(.pictofixedwidth) :is(input[type=text], input[type=email], input[type=url], input[type=tel], input:not([type]), select:not(.select2-hidden-accessible), span.select2-container):where(:not([class~="width25"]):not([class~="width50"]):not([class~="width75"]):not([class~="width100"]):not([class~="width125"]):not([class~="width150"]):not([class~="width200"]):not(.hasDatepicker)) {
+	margin-left: 0 !important;
+}
+
+/* One left edge for every control: cells holding controls (inputs, checkboxes, selects, textareas, editors, dates)
+   get the icon column's width as left padding, unless they start with an icon themselves */
+html body table.border td:not(:first-child):has(:is(input:not([type=hidden]), select, textarea, .cke, .select2-container)):not(:has(.pictofixedwidth)) {
+	padding-left: calc(var(--m-icon-w) + 8px) !important;
+}
+html body table.border td textarea { margin-left: 0 !important; }
+html body table.border td > input[type=checkbox], html body table.border td > input[type=radio] { margin-left: 3px !important; }
+
+/* Photo placeholder or uploaded photo that is itself the img.photoref (users, contacts, ...) */
+html body div.divphotoref img.photoref {
+	display: block !important;
+	width: 72px !important; height: 72px !important; max-width: none !important;
+	padding: 0 !important; margin: 0 !important;
+	object-fit: cover;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 18px !important;
+	box-shadow: 0 2px 10px rgba(15,23,42,.10), 0 1px 3px rgba(15,23,42,.06) !important;
+}
+/* Default silhouette (no uploaded photo): smaller inside its tile */
+html body div.divphotoref img.photoref[src*="/theme/common/user_"] {
+	box-sizing: border-box;
+	padding: 14px !important;
+	object-fit: contain;
+	background: #fff !important;
+}
+
+/* ---------- Record view (card): clear label / value boundary and two separated panels ---------- */
+/* Label cell: tinted background and a vertical divider, value cell stays white */
+html body table.tableforfield > tbody > tr > td:first-child:not([colspan]) {
+	background: var(--m-surface-2);
+	border-right: 1px solid var(--m-border) !important;
+}
+html body table.tableforfield > tbody > tr > td:nth-child(2) { padding-left: 16px !important; }
+html body table.tableforfield { border: 1px solid var(--m-border) !important; border-radius: var(--m-radius); overflow: hidden; }
+
+/* Left / right halves: side by side with a gap instead of touching each other */
+html body div.fichecenter:has(> div.fichehalfleft) { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; }
+html body div.fichecenter > div.fichehalfleft, html body div.fichecenter > div.fichehalfright {
+	float: none !important; flex: 1 1 380px; min-width: 0; width: auto !important; margin: 0 !important; padding: 0 !important;
+}
+html body div.fichecenter > div.fichecenterbis, html body div.fichecenter > div.clearboth { flex-basis: 100%; }
+/* Stronger boundary */
+html body table.tableforfield { border-color: var(--m-border-strong) !important; background: var(--m-surface); }
+html body table.tableforfield > tbody > tr > td:first-child:not([colspan]) {
+	background: color-mix(in srgb, var(--m-accent) 6%, #f8fafc) !important;
+	border-right: 1px solid var(--m-border-strong) !important;
+}
+html body table.tableforfield > tbody > tr > td { border-bottom: 1px solid var(--m-border) !important; }
+html body table.tableforfield > tbody > tr:last-child > td { border-bottom: 0 !important; }
+
+/* ---------- Record view, final: no painted columns, no lines. Soft rows with hover (option B) ---------- */
+html body table.tableforfield {
+	border: 0 !important; border-radius: 0; overflow: visible; background: transparent !important;
+	border-collapse: separate; border-spacing: 0 2px;
+}
+html body table.tableforfield > tbody > tr > td,
+html body table.tableforfield > tbody > tr > td:first-child:not([colspan]) {
+	background: transparent !important;
+	border: 0 !important;
+	padding-top: 9px !important; padding-bottom: 9px !important;
+}
+html body table.tableforfield > tbody > tr > td:first-child { padding-left: 12px !important; border-radius: 8px 0 0 8px; }
+html body table.tableforfield > tbody > tr > td:last-child { border-radius: 0 8px 8px 0; }
+html body table.tableforfield > tbody > tr > td:nth-child(2) { padding-left: 16px !important; }
+html body table.tableforfield > tbody > tr:not(.liste_titre):hover > td { background: var(--m-surface-2) !important; }
+
+/* Each half of the record view is a bordered panel */
+html body div.fichecenter > div.fichehalfleft, html body div.fichecenter > div.fichehalfright {
+	border: 1px solid var(--m-border-strong);
+	border-radius: var(--m-radius);
+	padding: 8px 10px !important;
+	background: var(--m-surface);
+}
+html body div.fichehalfleft > div.underbanner, html body div.fichehalfright > div.underbanner { display: none; }
+
+/* ---------- Titles: no all-caps, a clear size scale ---------- */
+html body div.titre { text-transform: none !important; letter-spacing: -0.01em; color: var(--m-ink) !important; font-weight: 600; font-size: 15px; }
+html body table.table-fiche-title .col-title div.titre { font-size: 22px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.25; }
+html body table.table-fiche-title .col-title div.titre span.opacitymedium, html body div.titre .opacitymedium { font-weight: 500; font-size: .8em; }
+
+/* ---------- Tabs: darker inactive text, thick rounded underline on the active tab ---------- */
+html body div.tabs a.tab, html body div.tabs a.tab:link, html body div.tabs a.tab:visited,
+html body div.tabs div.tabunactive > a.tab, html body a.tab.tabunactive, html body a.tabunactive {
+	color: var(--m-ink-2) !important;
+	position: relative;
+}
+html body div.tabs a.tab:hover, html body div.tabs div.tabunactive > a.tab:hover { color: var(--m-ink) !important; }
+html body div.tabs div.tabactive > a.tab, html body div.tabs div.tabactive > a.tab:link, html body div.tabs div.tabactive > a.tab:visited,
+html body div.tabs div.tabactive > a.tab:hover, html body div.tabs div.tabsElemActive a.tab, html body a.tab.tabactive, html body a.tabactive {
+	color: var(--m-accent-strong) !important;
+	font-weight: 600;
+	border-bottom-color: transparent !important;
+	position: relative;
+}
+html body div.tabs div.tabactive > a.tab::after, html body div.tabs div.tabsElemActive a.tab::after {
+	content: '';
+	position: absolute; left: 0; right: 0; bottom: -2px;
+	height: 4px; border-radius: 4px 4px 0 0;
+	background: var(--m-accent);
+}
+/* Underlines touch each other: no gap between tabs, hover bar has the same size and position as the active one */
+html body div.tabs { gap: 0 !important; }
+html body div.tabs a.tab:hover, html body div.tabs div.tabunactive > a.tab:hover { border-bottom-color: transparent !important; }
+html body div.tabs div.tabunactive > a.tab::after {
+	content: ''; position: absolute; left: 0; right: 0; bottom: -2px;
+	height: 4px; border-radius: 4px 4px 0 0; background: transparent;
+	transition: background .15s;
+}
+html body div.tabs div.tabunactive > a.tab:hover::after { background: var(--m-border-strong); }
+
+/* ---------- Left menu: collapsible groups with a chevron (see modern.js) ---------- */
+html body div.vmenu div.menu_titre.m-has-children { position: relative; }
+html body div.vmenu div.menu_titre.m-has-children > a.vmenu, html body div.vmenu div.menu_titre.m-has-children > span.vmenu { padding-right: 34px; }
+html body div.vmenu button.m-chev {
+	position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+	width: 26px; height: 26px; padding: 0; border: 0; border-radius: 6px;
+	background: transparent; color: var(--m-ink-2); cursor: pointer;
+	display: inline-flex; align-items: center; justify-content: center;
+}
+html body div.vmenu button.m-chev:hover { background: var(--m-accent-soft); color: var(--m-accent-strong); }
+html body div.vmenu button.m-chev .fas { font-size: 11px; transition: transform .18s ease; }
+html body div.vmenu div.menu_titre.m-collapsed button.m-chev .fas { transform: rotate(-90deg); }
+html body div.vmenu .m-group-hidden { display: none !important; }
+
+/* Left menu content must fit its 240px panel (it was 280px wide and clipped on the right) */
+html body .side-nav #id-left, html body #id-left { width: 100% !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box; }
+html body div.vmenu { width: 100% !important; box-sizing: border-box; }
+html body div.vmenu div.blockvmenupair, html body div.vmenu div.blockvmenuimpair { width: auto !important; box-sizing: border-box; }
+html body div.vmenu div.menu_contenu a.vsmenu, html body div.vmenu div.menu_titre a.vmenu { white-space: normal; overflow-wrap: anywhere; }
