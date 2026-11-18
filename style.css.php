@@ -164,7 +164,7 @@ if (empty($user->id) && !empty($_SESSION['dol_login'])) {
 // Define css type
 top_httphead('text/css');
 // Important: Following code is to avoid page request by browser and PHP CPU at each Dolibarr page access.
-header('Cache-Control: max-age=10800, public, must-revalidate');
+header('Cache-Control: no-cache, must-revalidate');  // modern theme: always revalidate while the theme is being tuned (md uses max-age=10800)
 
 if (GETPOST('theme', 'aZ09')) {
 	$conf->theme = GETPOST('theme', 'aZ09'); // If theme was forced on URL
