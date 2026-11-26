@@ -319,7 +319,8 @@ div.vmenu .menu_titre { margin-top: 6px; }
 div.vmenu .menu_titre a.vmenu, div.vmenu .menu_titre span.vmenu {
 	padding: 6px 10px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--m-muted) !important; background: transparent !important;
 }
-.side-nav { width: 240px; }
+:root { --m-side-w: 290px; --m-rail-w: 56px; --m-top-h: 50px; }
+.side-nav { width: var(--m-side-w); }
 
 /* ---------- Disabled / refused actions: normal arrow cursor, never the pointer hand ---------- */
 .butActionRefused, a.butActionRefused, span.butActionRefused, .butAction.butActionRefused,
@@ -905,11 +906,201 @@ html body div.vmenu button.m-chev .fas { font-size: 11px; transition: transform 
 html body div.vmenu div.menu_titre.m-collapsed button.m-chev .fas { transform: rotate(-90deg); }
 html body div.vmenu .m-group-hidden { display: none !important; }
 
-/* Left menu content must fit its 240px panel (it was 280px wide and clipped on the right) */
-html body .side-nav #id-left, html body #id-left { width: 100% !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box; }
+/* Left menu content must fit its panel (it was 280px wide and clipped on the right) */
+html body .side-nav #id-left, html body #id-left { display: block !important; width: 100% !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box; }
 html body div.vmenu { width: 100% !important; box-sizing: border-box; }
 html body div.vmenu div.blockvmenupair, html body div.vmenu div.blockvmenuimpair { width: auto !important; box-sizing: border-box; }
 html body div.vmenu div.menu_contenu a.vsmenu, html body div.vmenu div.menu_titre a.vmenu { white-space: normal; overflow-wrap: anywhere; }
 
 /* Header rows keep the theme border colour whatever the base sheet says (it used white, wrong in dark mode) */
 html body table tr.liste_titre > th, html body table tr.liste_titre > td, html body table th.liste_titre { border-bottom-color: var(--m-border) !important; }
+
+/* ============================================================================== */
+/* APP LAYOUT (desktop): full height sidebar, top bar beside it                   */
+/* Open: full menu. Closed: thin icon rail. Hover on the toggle: menu over page.  */
+/* Behaviour (hover, saved state, rail tooltips) is in modern.js                  */
+/* ============================================================================== */
+<?php if (GETPOST('optioncss', 'aZ09') != 'print') { ?>
+/* ---------- Top bar: login block (print, help, search, user...) on the right ---------- */
+@media screen and (min-width: 769px) {
+	html body #id-top.side-nav-vert { margin-left: 0; margin-right: 0; }
+
+	html body #id-top div.login_block, html body.sidebar-collapse #id-top div.login_block {
+		position: fixed; top: 0; right: 0; left: auto;
+		display: flex; align-items: center; gap: 4px;
+		width: auto; height: var(--m-top-h); padding: 0 8px 0 0;
+		background: transparent; border: 0;
+	}
+	html body #id-top div.login_block_other, html body.sidebar-collapse #id-top div.login_block_other {
+		order: 1; display: flex; align-items: center; clear: none;
+		margin: 0; padding: 0; max-width: none;
+	}
+	html body #id-top div.login_block_tools { order: 2; display: flex; align-items: center; padding: 0; }
+	html body #id-top div.login_block_user { order: 3; display: flex; align-items: center; clear: none; }
+	html body #id-top div.login_block_tools > div { position: relative; top: auto; right: auto !important; display: flex !important; align-items: center; }
+	html body #id-top div.login_block_user .login_block_elem_name { width: auto; margin: 0; height: auto; }
+	html body #id-top div#topmenu-login-dropdown { position: relative; top: auto; right: auto; height: var(--m-top-h); line-height: 49px; }
+	html body #id-top .login_block_other .login_block_elem { float: none; display: inline-block; }
+	html body #id-top div.login_block span.aversion { color: var(--m-bar-text-dim); filter: none; font-size: 11px; }
+
+	/* room kept for the block so the top menu does not slide under it */
+	html body #id-top ul.tmenu { margin-right: 330px; }
+}
+@media screen and (min-width: 769px) and (max-width: 1500px) {
+	html body #id-top div.login_block span.aversion, html body #id-top .atoploginusername { display: none !important; }
+	html body #id-top ul.tmenu { margin-right: 210px; }
+}
+<?php } ?>
+
+<?php if (GETPOST('optioncss', 'aZ09') != 'print' && !in_array($conf->browser->layout, array('phone', 'tablet'))) { ?>
+@media screen and (min-width: 769px) {
+	/* ---------- Sidebar column: the head strip (behind the toggle) + the scrolling menu ---------- */
+	html body:has(.side-nav)::before {
+		content: ""; position: fixed; top: 0; left: 0; z-index: 90;
+		box-sizing: border-box; width: var(--m-side-w); height: var(--m-top-h);
+		background: var(--m-surface); border-right: 1px solid var(--m-border);
+	}
+	html body .side-nav { top: var(--m-top-h); }
+	html body:has(.side-nav) #id-top.side-nav-vert { margin-left: var(--m-side-w); }
+
+	/* Toggle icon: moved from the top bar to the head of the sidebar */
+	html body:has(.side-nav) #id-top li#mainmenutd_menu {
+		position: fixed; top: 0; left: 0; z-index: 2;
+		display: flex; align-items: center; justify-content: center;
+		width: var(--m-rail-w); height: var(--m-top-h);
+		background: transparent !important; box-shadow: none !important;
+	}
+	html body:has(.side-nav) #id-top li#mainmenutd_menu :is(a, span) { color: var(--m-ink-2) !important; }
+	html body:has(.side-nav) #id-top li#mainmenutd_menu:hover :is(a, span) { color: var(--m-accent) !important; }
+
+	/* ---------- Closed: narrow column ---------- */
+	html body.sidebar-collapse:has(.side-nav)::before { width: var(--m-rail-w); }
+	html body.sidebar-collapse:has(.side-nav) #id-top.side-nav-vert { margin-left: var(--m-rail-w); }
+	html body.sidebar-collapse:has(.side-nav) #id-right { padding-left: calc(var(--m-rail-w) + 9px); }
+	html body.sidebar-collapse .side-nav { display: block; width: var(--m-rail-w); }
+
+	/* ---------- Closed and not previewed: one icon per menu section ---------- */
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu { padding: 0 8px; }
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu :is(.menu_contenu, button.m-chev, .blockvmenubookmarks),
+	html body.sidebar-collapse:not(.m-menu-peek) .side-nav :is(#blockvmenuhelp, .blockvmenuhelp) { display: none !important; }
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre { margin: 4px 0; padding: 0; }
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre :is(a.vmenu, span.vmenu) {
+		display: flex; align-items: center; justify-content: center;
+		height: 40px; padding: 0 !important; font-size: 0 !important; overflow: hidden;
+	}
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu [class*="fa-"] { margin: 0; padding: 0; width: auto; font-size: 17px; }
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu img { margin: 0; width: 18px; }
+	/* default icon for a section that has none */
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu:not(:has([class*="fa-"], img))::before {
+		content: "\f07b"; font: 900 17px "Font Awesome 5 Free";
+	}
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu:hover { background: var(--m-accent-soft) !important; }
+	/* current section */
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu.m-current-parent { background: var(--m-bar) !important; }
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu.m-current-parent :is(span, i),
+	html body.sidebar-collapse:not(.m-menu-peek) div.vmenu div.menu_titre .vmenu.m-current-parent::before { color: var(--m-side-active-text) !important; }
+	/* search box of the left menu: reduced to its magnifier */
+	html body.sidebar-collapse:not(.m-menu-peek) .blockvmenusearch :is(.select2-container, .select2-selection) { width: 40px !important; }
+	html body.sidebar-collapse:not(.m-menu-peek) .blockvmenusearch .select2-selection__rendered { padding: 0 !important; display: flex; align-items: center; justify-content: center; height: 100% !important; }
+	html body.sidebar-collapse:not(.m-menu-peek) .blockvmenusearch .select2-selection__arrow { display: none; }
+	html body.sidebar-collapse:not(.m-menu-peek) .blockvmenusearch .select2-selection__placeholder { font-size: 0; }
+	html body.sidebar-collapse:not(.m-menu-peek) .blockvmenusearch .select2-selection__placeholder .fa { margin: 0; padding: 0; font-size: 16px; color: var(--m-ink-2) !important; }
+
+	/* ---------- Hover preview: full menu drawn over the page, the content does not move ---------- */
+	html body.sidebar-collapse.m-menu-peek .side-nav {
+		width: var(--m-side-w); z-index: 1001;
+		box-shadow: 8px 0 24px rgba(15,23,42,.18) !important;
+	}
+
+	/* ---------- Section name shown beside a rail icon ---------- */
+	.m-rail-tip {
+		position: fixed; z-index: 1100; transform: translateY(-50%); pointer-events: none;
+		padding: 6px 10px; border-radius: 6px; white-space: nowrap;
+		background: var(--m-ink); color: var(--m-surface); font-size: 12.5px; font-weight: 500;
+		box-shadow: 0 4px 12px rgba(15,23,42,.2);
+	}
+}
+<?php } ?>
+
+/* ============================================================================== */
+/* LEFT MENU TOGGLE: sidebar panel icon in place of the hamburger                 */
+/* ============================================================================== */
+html body .menuhider span.fa-bars::before {
+	content: "" !important;
+	display: inline-block; width: 20px; height: 20px; vertical-align: middle;
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='3'/%3E%3Cpath d='M9.5 4v16'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='3'/%3E%3Cpath d='M9.5 4v16'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ============================================================================== */
+/* SIDEBAR COLORS: the --m-side-* variables are in modern.inc.css.php             */
+/* ============================================================================== */
+/* The menu rules read the theme variables: give them the sidebar values inside the panel */
+html body .side-nav {
+	--m-surface: var(--m-side-bg); --m-surface-2: var(--m-side-hover); --m-surface-3: var(--m-side-hover);
+	--m-ink: var(--m-side-strong); --m-ink-2: var(--m-side-text); --m-muted: var(--m-side-muted);
+	--m-border: var(--m-side-line); --m-border-strong: var(--m-side-line);
+	--m-accent: var(--m-side-active); --m-accent-soft: var(--m-side-hover); --m-accent-strong: var(--m-side-active-text); --m-bar: var(--m-side-active);
+	--colorbackvmenu1: var(--m-side-bg); --colortextbackvmenu: var(--m-side-text);
+	background: var(--m-side-bg) !important; color: var(--m-side-text); scrollbar-color: var(--m-side-line) var(--m-side-bg);
+}
+html body .side-nav #id-left { background: transparent; }
+html body .side-nav div.vmenu div.menu_titre :is(a.vmenu, span.vmenu) { color: var(--m-side-strong) !important; }
+html body .side-nav div.vmenu div.menu_titre .vmenu :is(span, i)[class*="fa-"], html body .side-nav div.vmenu div.menu_contenu [class*="fa-"]:not(.fa-exclamation-triangle) { color: var(--m-side-icon) !important; }
+html body .side-nav div.vmenu div.menu_titre a.vmenu.m-current-parent { background: var(--m-side-hover) !important; }
+html body .side-nav :is(.help, .help a, .blockvmenuhelp, .blockvmenuhelp a) { color: var(--m-side-muted) !important; }
+/* search and bookmark lists inside the panel */
+html body .side-nav .select2-container--default .select2-selection--single { background: var(--m-side-card) !important; border-color: var(--m-side-card) !important; }
+html body .side-nav .select2-selection :is(.select2-selection__rendered, .select2-selection__placeholder, .fa) { color: var(--m-side-text) !important; }
+
+@media screen and (min-width: 769px) {
+	html body:has(.side-nav)::before { background: var(--m-side-bg); border-right-color: var(--m-side-line); }
+	html body .side-nav { border-right-color: var(--m-side-line); }
+	html body:has(.side-nav) #id-top li#mainmenutd_menu :is(a, span) { color: var(--m-side-icon) !important; }
+	html body:has(.side-nav) #id-top li#mainmenutd_menu:hover :is(a, span) { color: var(--m-side-strong) !important; }
+	html body.sidebar-collapse:not(.m-menu-peek) .side-nav div.vmenu div.menu_titre .vmenu.m-current-parent { background: var(--m-side-active) !important; }
+	html body.sidebar-collapse:not(.m-menu-peek) .side-nav div.vmenu div.menu_titre .vmenu.m-current-parent :is(span, i)[class*="fa-"] { color: var(--m-side-active-text) !important; }
+	html body .m-rail-tip { background: var(--m-side-card); color: var(--m-side-strong); }
+}
+
+
+/* ---------- Hover preview: the menu grows over the page and the top bar, its texts slide in ---------- */
+.m-peek-head { display: none; }
+@media screen and (min-width: 769px) {
+	html body .side-nav { transition: width .24s ease; transition-delay: 0s; }
+	/* head of the preview, drawn over the left part of the top bar (element added by modern.js) */
+	html body #id-top .m-peek-head {
+		display: block; position: fixed; top: 0; left: 0; z-index: 1; visibility: hidden;
+		width: var(--m-rail-w); height: var(--m-top-h); background: var(--m-side-bg);
+		transition: width .24s ease, visibility 0s .24s;
+	}
+	html body.sidebar-collapse.m-menu-peek #id-top .m-peek-head {
+		visibility: visible; width: var(--m-side-w); transition: width .24s ease;
+		box-shadow: 8px 0 24px rgba(15,23,42,.18); clip-path: inset(0 -32px 0 0);
+	}
+	html body.sidebar-collapse.m-menu-peek .side-nav { clip-path: inset(0 -32px 0 0); }
+	/* the menu keeps its full width while the panel grows, so no line wraps during the animation */
+	html body.sidebar-collapse.m-menu-peek .side-nav #id-left { width: var(--m-side-w) !important; max-width: none !important; }
+	html body.sidebar-collapse.m-menu-peek div.vmenu :is(.menu_titre, .menu_contenu) { animation: m-menu-text .26s ease .08s both; }
+	html body.sidebar-collapse.m-menu-peek div.vmenu > :nth-child(2) :is(.menu_titre, .menu_contenu) { animation-delay: .12s; }
+	html body.sidebar-collapse.m-menu-peek div.vmenu > :nth-child(3) :is(.menu_titre, .menu_contenu) { animation-delay: .16s; }
+	html body.sidebar-collapse.m-menu-peek div.vmenu > :nth-child(n+4) :is(.menu_titre, .menu_contenu) { animation-delay: .2s; }
+}
+@keyframes m-menu-text {
+	from { opacity: 0; transform: translateX(-12px); }
+	to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+	html body .side-nav, html body #id-top .m-peek-head { transition: none !important; }
+	html body div.vmenu :is(.menu_titre, .menu_contenu) { animation: none !important; }
+}
+
+/* A section name that is itself the current page (for example the dashboard) */
+html body .side-nav div.vmenu div.menu_titre a.vmenu.m-current { background: var(--m-side-active) !important; color: var(--m-side-active-text) !important; }
+html body .side-nav div.vmenu div.menu_titre a.vmenu.m-current :is(span, i)[class*="fa-"] { color: var(--m-side-active-text) !important; }
+
+/* Open menu (and hover preview): only the current entry is highlighted, not the name of its section.
+   The icon bar keeps the highlight, as the entry itself is not visible there. */
+html body:not(.sidebar-collapse) .side-nav div.vmenu div.menu_titre a.vmenu.m-current-parent:not(:hover),
+html body.m-menu-peek .side-nav div.vmenu div.menu_titre a.vmenu.m-current-parent:not(:hover) { background: transparent !important; }
