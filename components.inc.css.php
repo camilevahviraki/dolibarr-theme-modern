@@ -942,6 +942,8 @@ html body table tr.liste_titre > th, html body table tr.liste_titre > td, html b
 	html body #id-top div#topmenu-login-dropdown { position: relative; top: auto; right: auto; height: var(--m-top-h); line-height: 49px; }
 	html body #id-top .login_block_other .login_block_elem { float: none; display: inline-block; }
 	html body #id-top div.login_block span.aversion { color: var(--m-bar-text-dim); filter: none; font-size: 11px; }
+	/* help, print and bug icons: light, like the rest of the bar */
+	html body #id-top div.login_block_other .atoplogin { color: var(--m-bar-text-dim) !important; }
 
 	/* room kept for the block so the top menu does not slide under it */
 	html body #id-top ul.tmenu { margin-right: 330px; }
