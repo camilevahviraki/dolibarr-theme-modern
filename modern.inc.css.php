@@ -11,12 +11,12 @@
  *	\file       htdocs/theme/modern/modern.inc.css.php
  *	\brief      Style layer of the "modern" theme. Included at the end of style.css.php (after the md base sheet).
  *
- *	All accent colors are derived from the colors set by the admin in Setup > Display > Theme
- *	(top menu background, action button color, link color), so the palette stays configurable.
- *	Default palette is indigo, see theme_vars.inc.php.
+ *	Accent colors are derived from the colors set by the admin in Setup > Display > Theme
+ *	(action button color, link color), default palette indigo, see theme_vars.inc.php.
+ *	The top bar and the sidebar share a fixed dark slate color, set by the --m-side-* variables.
  */
 
-// Values computed by style.css.php before this include: $butactionbg, $colorbackhmenu1 ('r,g,b'), $colortextbackhmenu ('FFFFFF' or '000000'), $colortextlink ('r,g,b')
+// Values computed by style.css.php before this include: $butactionbg, $colortextlink ('r,g,b')
 $mAcc = trim($butactionbg);
 if (strpos($mAcc, ',') !== false) {
 	$mAccParts = array_slice(array_map('trim', explode(',', $mAcc)), 0, 3);
@@ -24,8 +24,6 @@ if (strpos($mAcc, ',') !== false) {
 } else {
 	$mAcc = '#'.ltrim($mAcc, '#');
 }
-$mBar = 'rgb('.$colorbackhmenu1.')';
-$mBarTxt = '#'.$colortextbackhmenu;
 $mLink = 'rgb('.$colortextlink.')';
 ?>
 
@@ -39,20 +37,22 @@ $mLink = 'rgb('.$colortextlink.')';
 	--m-accent-soft: color-mix(in srgb, var(--m-accent) 9%, var(--m-surface));
 	--m-accent-ring: color-mix(in srgb, var(--m-accent) 22%, transparent);
 	--m-link: <?php print $mLink; ?>;
-	--m-bar: <?php print $mBar; ?>;
-	--m-bar-text: <?php print $mBarTxt; ?>;
-	--m-bar-text-dim: color-mix(in srgb, var(--m-bar-text) 78%, transparent);
-	/* Sidebar: same color as the top bar, the other shades derive from it */
-	--m-side-bg: var(--m-bar);
-	--m-side-card: color-mix(in srgb, var(--m-side-bg) 78%, black);
-	--m-side-hover: color-mix(in srgb, var(--m-side-bg) 90%, var(--m-bar-text));
-	--m-side-line: color-mix(in srgb, var(--m-side-bg) 82%, var(--m-bar-text));
-	--m-side-strong: var(--m-bar-text);
-	--m-side-text: var(--m-bar-text-dim);
-	--m-side-icon: var(--m-bar-text-dim);
-	--m-side-muted: color-mix(in srgb, var(--m-bar-text) 60%, var(--m-side-bg));
+	/* Dark slate shared by the sidebar and the top bar */
+	--m-side-bg: #384547;
+	--m-side-card: #263539;
+	--m-side-hover: #3b4a4c;
+	--m-side-line: #465355;
+	--m-side-strong: #eff5f7;
+	--m-side-text: #aab5b9;
+	--m-side-icon: #c2cacc;
+	--m-side-muted: #8b9798;
 	--m-side-active: #3082ff; /* current entry */
 	--m-side-active-text: #ffffff;
+	--m-top-active: #d9dee0; /* light grey underline of the active top bar entry */
+	--m-top-active-text: color-mix(in srgb, var(--m-side-active) 75%, white); /* primary blue, lightened to read on the bar */
+	--m-bar: var(--m-side-bg);
+	--m-bar-text: var(--m-side-strong);
+	--m-bar-text-dim: var(--m-side-icon);
 	--m-ink: #0f172a;
 	--m-ink-2: #334155;
 	--m-muted: #64748b;
@@ -200,6 +200,7 @@ body, input, select, textarea, button, #id-top .tmenulabel, #id-top .mainmenuasp
 	text-rendering: optimizeLegibility;
 }
 body { background: var(--colorbackbody); color: var(--m-ink); letter-spacing: -0.006em; }
+#id-top .tmenulabel, #id-top .mainmenuaspan { font-size: 12px; } /* text of the top bar entries */
 h1, h2, h3, .titre, .table-title, div.titre { letter-spacing: -0.015em; }
 td, th { font-variant-numeric: tabular-nums; }
 a, a:hover { text-decoration: none; }
@@ -215,10 +216,10 @@ div.tmenucenter, a.tmenu, a.tmenusel, .tmenu a { color: var(--m-bar-text-dim) !i
 [id^=mainmenutd_]:hover { background: color-mix(in srgb, var(--m-bar-text) 10%, transparent) !important; }
 a.tmenu:hover, a.tmenu:hover .tmenucenter { color: var(--m-bar-text) !important; }
 li.tmenusel, div.tmenusel, #mainmenutd_home.tmenusel, [id^=mainmenutd_].tmenusel {
-	background: color-mix(in srgb, var(--m-accent) 55%, transparent) !important;
-	box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--m-accent) 60%, white);
+	background: transparent !important;
+	box-shadow: inset 0 -2px 0 var(--m-top-active);
 }
-li.tmenusel .tmenucenter, div.tmenusel .tmenucenter, .tmenusel a { color: var(--m-bar-text) !important; }
+li.tmenusel .tmenucenter, div.tmenusel .tmenucenter, li.tmenusel a, li.tmenusel a span, .tmenusel a { color: var(--m-top-active-text) !important; }
 .login_block, .login_block a, #topmenu-login-dropdown, #topmenu-login-dropdown a { color: var(--m-bar-text) !important; }
 
 /* ---------- Left menu ---------- */
