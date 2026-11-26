@@ -189,7 +189,7 @@ if (getDolGlobalString('MAIN_OVERWRITE_THEME_RES')) {
 }
 
 // Define image path files and other constants
-$fontlist = "'Inter','Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif";
+$fontlist = "'Poppins','Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,Roboto,'Helvetica Neue',Arial,sans-serif";
 if (getDolGlobalString('THEME_FONT_FAMILY')) {
 	$fontlist = getDolGlobalString('THEME_FONT_FAMILY').', '.$fontlist;
 }
@@ -394,7 +394,7 @@ print 'fontsize='.$fontsize."\n";
 print 'nbtopmenuentries='.$nbtopmenuentries."\n";
 print '*/'."\n";
 
-$leftmenuwidth = 254;
+$leftmenuwidth = 304;
 
 ?>
 
@@ -2746,7 +2746,7 @@ td.showDragHandle {
 	bottom: 0;
 	color: #333;
 	display: block;
-	font-family: "RobotoDraft","Roboto",sans-serif;
+	font-family: <?php print $fontlist; ?>;
 	<?php echo $left; ?>: 0;
 	<?php
 	if (in_array($conf->browser->layout, array('phone', 'tablet')) && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
