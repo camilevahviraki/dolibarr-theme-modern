@@ -1106,3 +1106,10 @@ html body .side-nav div.vmenu div.menu_titre a.vmenu.m-current :is(span, i)[clas
    The icon bar keeps the highlight, as the entry itself is not visible there. */
 html body:not(.sidebar-collapse) .side-nav div.vmenu div.menu_titre a.vmenu.m-current-parent:not(:hover),
 html body.m-menu-peek .side-nav div.vmenu div.menu_titre a.vmenu.m-current-parent:not(:hover) { background: transparent !important; }
+
+/* Search box of the left menu (open menu and hover preview): inside the panel, text centred */
+html body:is(:not(.sidebar-collapse), .m-menu-peek) .side-nav .blockvmenusearch { box-sizing: border-box; width: 100%; padding: 0 4px !important; }
+html body:is(:not(.sidebar-collapse), .m-menu-peek) .side-nav .blockvmenusearch :is(.select2-container, .select2-selection) { box-sizing: border-box; width: 100% !important; max-width: 100%; }
+html body:is(:not(.sidebar-collapse), .m-menu-peek) .side-nav .blockvmenusearch .select2-selection { position: relative; display: flex; align-items: center; height: 38px !important; }
+html body:is(:not(.sidebar-collapse), .m-menu-peek) .side-nav .blockvmenusearch .select2-selection__rendered { flex: 1; min-width: 0; height: 36px !important; line-height: 36px !important; padding: 0 28px 0 12px !important; }
+html body:is(:not(.sidebar-collapse), .m-menu-peek) .side-nav .blockvmenusearch .select2-selection__arrow { position: absolute; top: 0; right: 6px; height: 36px !important; }
