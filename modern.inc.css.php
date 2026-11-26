@@ -42,6 +42,17 @@ $mLink = 'rgb('.$colortextlink.')';
 	--m-bar: <?php print $mBar; ?>;
 	--m-bar-text: <?php print $mBarTxt; ?>;
 	--m-bar-text-dim: color-mix(in srgb, var(--m-bar-text) 78%, transparent);
+	/* Sidebar: same color as the top bar, the other shades derive from it */
+	--m-side-bg: var(--m-bar);
+	--m-side-card: color-mix(in srgb, var(--m-side-bg) 78%, black);
+	--m-side-hover: color-mix(in srgb, var(--m-side-bg) 90%, var(--m-bar-text));
+	--m-side-line: color-mix(in srgb, var(--m-side-bg) 82%, var(--m-bar-text));
+	--m-side-strong: var(--m-bar-text);
+	--m-side-text: var(--m-bar-text-dim);
+	--m-side-icon: var(--m-bar-text-dim);
+	--m-side-muted: color-mix(in srgb, var(--m-bar-text) 60%, var(--m-side-bg));
+	--m-side-active: #3082ff; /* current entry */
+	--m-side-active-text: #ffffff;
 	--m-ink: #0f172a;
 	--m-ink-2: #334155;
 	--m-muted: #64748b;
@@ -85,8 +96,6 @@ if (getDolGlobalString('THEME_DARKMODEENABLED')) {
 		--m-danger: #f87171;
 		--m-accent-strong: color-mix(in srgb, var(--m-accent) 55%, white);
 		--m-accent-soft: color-mix(in srgb, var(--m-accent) 24%, var(--m-surface));
-		--m-bar: color-mix(in srgb, var(--m-accent) 32%, #0a0e1a);
-		--m-bar-text: #f1f5f9;
 		--m-shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
 		--m-shadow-lg: 0 10px 30px rgba(0,0,0,.5);
 		--colorbackbody: #131824;
@@ -152,23 +161,42 @@ if (getDolGlobalString('THEME_DARKMODEENABLED')) {
 }
 ?>
 
-/* Inter (variable, SIL OFL) bundled in theme/modern/fonts */
+/* Poppins 400, 500 and 600 (SIL OFL, see fonts/LICENSE-Poppins.txt) bundled in theme/modern/fonts */
 @font-face {
-	font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
-	src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2-variations'), url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2');
-	unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+	font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap;
+	src: url('fonts/poppins-latin-ext-400.woff2') format('woff2');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
-	font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
-	src: url('fonts/inter-latin-wght-normal.woff2') format('woff2-variations'), url('fonts/inter-latin-wght-normal.woff2') format('woff2');
+	font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap;
+	src: url('fonts/poppins-latin-400.woff2') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap;
+	src: url('fonts/poppins-latin-ext-500.woff2') format('woff2');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap;
+	src: url('fonts/poppins-latin-500.woff2') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap;
+	src: url('fonts/poppins-latin-ext-600.woff2') format('woff2');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap;
+	src: url('fonts/poppins-latin-600.woff2') format('woff2');
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 html { -webkit-font-smoothing: antialiased; }
-body, input, select, textarea, button {
-	font-family: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+body, input, select, textarea, button, #id-top .tmenulabel, #id-top .mainmenuaspan {
+	font-family: 'Poppins', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
-	font-feature-settings: 'cv11', 'ss01', 'calt';
 	text-rendering: optimizeLegibility;
 }
 body { background: var(--colorbackbody); color: var(--m-ink); letter-spacing: -0.006em; }
